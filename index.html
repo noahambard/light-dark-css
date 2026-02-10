@@ -52,6 +52,13 @@
                 select.addEventListener('change', (e) => {
                     const value = e.target.value;
 
+                    if (
+                        value !== 'system' &&
+                        value !== 'light' &&
+                        value !== 'dark'
+                    )
+                        return;
+
                     // Reset classes first
                     root.classList.remove(
                         'color-scheme-system',
