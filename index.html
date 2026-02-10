@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="color-scheme-system">
+    <head>
+        <title>Light and Dark</title>
+        <script>
+            const root = document.documentElement;
+
+            // Apply theme immediately to prevent flash
+            let savedScheme = localStorage.getItem('color-scheme');
+            if (savedScheme !== 'dark' && savedScheme !== 'light') {
+                localStorage.removeItem('color-scheme');
+                savedScheme = null;
+            }
+
+            if (savedScheme) {
+                // Remove the default system listener class
+                root.classList.remove('color-scheme-system');
+                root.classList.add('color-scheme-' + savedScheme);
+            }
+        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <header>
+            <h1>Light and Dark Mode Support</h1>
+            <div class="select-container" id="color-scheme-picker">
+                <select name="color-scheme">
+                    <option value="system">System</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+                <svg
+                    aria-hidden="true"
+                    viewBox="0 0 100 75"
+                    width="100"
+                    height="75"
+                >
+                    <use href="icons.svg#dropdown"></use>
+                </svg>
+            </div>
+            <script>
+                const select = document.querySelector(
+                    '#color-scheme-picker > select'
+                );
+
+                // Sync dropdown with saved setting
+                if (savedScheme) {
+                    select.value = savedScheme;
+                }
+
+                select.addEventListener('change', (e) => {
+                    const value = e.target.value;
+
+                    // Reset classes first
+                    root.classList.remove(
+                        'color-scheme-system',
+                        'color-scheme-dark',
+                        'color-scheme-light'
+                    );
+
+                    if (value === 'system') {
+                        root.classList.add('color-scheme-system');
+                        localStorage.removeItem('color-scheme');
+                    } else {
+                        root.classList.add('color-scheme-' + value);
+                        localStorage.setItem('color-scheme', value);
+                    }
+                });
+            </script>
+        </header>
+        <main>
+            <p>
+                Using world-class techniques and ground-breaking discoveries, we
+                can support both light mode and dark mode on our website. You
+                are welcome.
+            </p>
+            <a class="button" href="#">Learn more</a>
+        </main>
+        <footer>
+            <p>&copy; 2026 This beautiful face.</p>
+            <p>
+                This is advanced, propriatary code downloaded, installed, and
+                running on your local computer from a plain text source file.
+                Plz no steal.
+            </p>
+        </footer>
+    </body>
+</html>

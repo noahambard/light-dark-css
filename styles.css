@@ -1,0 +1,190 @@
+:root {
+    --accent-100: rgb(255, 226, 20);
+    --accent-50: rgb(245, 202, 0);
+    --accent-0: rgb(235, 182, 30);
+    --highlight-dark: rgb(165, 112, 20);
+    --highlight-light: rgb(245, 236, 125);
+    --black: rgb(12, 12, 25);
+
+    --fg: var(--black);
+    --fg-accent: var(--black);
+    --bg: white;
+    --highlight: var(--highlight-dark);
+
+    --gap: 1.2rem;
+    --pad: 1rem;
+    --pad-vertical: 1.2rem;
+    --content-width: 42.5rem;
+
+    background-color: var(--bg);
+    color: var(--fg);
+    color-scheme: light;
+    font-size: 17px;
+    font-family: 'Times New Roman';
+}
+
+*::selection {
+    background-color: var(--highlight);
+    color: var(--bg);
+}
+
+body {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--gap);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+}
+
+body > * {
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--pad);
+    padding-right: var(--pad);
+}
+
+header {
+    --_scheme-select-pad: 15ch;
+
+    align-items: center;
+    display: flex;
+    gap: calc(var(--gap) / 2);
+    justify-content: center;
+    padding: var(--pad-vertical) var(--_scheme-select-pad) 0
+        var(--_scheme-select-pad);
+    position: relative;
+    width: var(--content-width);
+}
+
+#color-scheme-picker {
+    position: absolute;
+    right: 0.89rem;
+}
+
+@media screen and (max-width: 47.5rem) {
+    :root {
+        --content-width: 100%;
+    }
+
+    header {
+        flex-direction: column;
+        padding: var(--pad-vertical) 0 0 0;
+    }
+
+    #color-scheme-picker {
+        position: relative;
+        right: unset;
+    }
+}
+
+main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    max-width: var(--content-width);
+}
+
+.select-container {
+    --_dropdown-width: 0.65rem;
+    --_border-width: 0.12rem;
+    --_pad-height: 0.096rem;
+    --_pad-width: 0.4rem;
+
+    align-items: center;
+    display: flex;
+    padding: 0;
+    position: relative;
+}
+
+.select-container select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--bg);
+    border: var(--_border-width) solid var(--fg);
+    border-radius: 0.8rem;
+    box-sizing: border-box;
+    color: var(--fg);
+    font-size: 0.8rem;
+    overflow: hidden;
+    padding: var(--_pad-height)
+        calc(var(--_dropdown-width) + var(--_pad-width) + var(--_pad-width) / 2)
+        var(--_pad-height) var(--_pad-width);
+    text-overflow: ellipsis;
+    max-width: 15ch;
+}
+
+.select-container select:focus-visible,
+.select-container select:hover {
+    background-color: var(--accent-100);
+    border-color: var(--accent-100);
+    color: var(--fg-accent);
+}
+
+.select-container svg {
+    pointer-events: none;
+    position: absolute;
+    right: calc(var(--_border-width) + var(--_pad-width));
+    width: var(--_dropdown-width);
+}
+
+.select-container select:focus-visible + svg,
+.select-container select:hover + svg {
+    color: var(--fg-accent);
+}
+
+h1,
+p {
+    margin: 0;
+}
+
+.button {
+    background-color: var(--accent-50);
+    border-radius: 0.8rem;
+    color: var(--fg-accent);
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.265rem 1.1rem;
+    text-decoration: none;
+    transition: 70ms background-color ease-in-out;
+}
+
+.button:focus-visible,
+.button:hover {
+    background-color: var(--accent-100);
+}
+
+.button:active {
+    background-color: var(--accent-0);
+}
+
+footer {
+    background-color: var(--accent-0);
+    color: var(--fg-accent);
+    padding: var(--pad-vertical) var(--pad);
+    width: 100%;
+}
+
+/* System Dark (Only considered if class is .color-scheme-system) */
+@media (prefers-color-scheme: dark) {
+    .color-scheme-system:root {
+        --fg: #eee;
+        --bg: var(--black);
+        --highlight: var(--highlight-light);
+        color-scheme: dark;
+    }
+}
+
+/* Manual Dark (Always active if class is .color-scheme-dark) */
+.color-scheme-dark:root {
+    --fg: #eee;
+    --bg: var(--black);
+    --highlight: var(--highlight-light);
+    color-scheme: dark;
+}
